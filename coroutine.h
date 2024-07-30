@@ -5,7 +5,7 @@
 
 //包装一个协程函数获得awaitable
 template<typename T>
-Awaitable<T> create_awaitable(Awaitable<T>&& aw)
+inline Awaitable<T> create_awaitable(Awaitable<T>&& aw)
 {
 	//返回一个右值对象,将资源从aw转移
 	return Awaitable<T>(std::move(aw));
@@ -35,19 +35,19 @@ private:
 };
 
 template <typename T>
-Awaitable<T>& Coroutine<T>::awaitable()
+inline Awaitable<T>& Coroutine<T>::awaitable()
 {
 	return _aw;
 }
 
 template <typename T>
-Coroutine<T>::Coroutine(Awaitable<T>&& aw):_aw(std::move(aw))
+inline Coroutine<T>::Coroutine(Awaitable<T>&& aw):_aw(std::move(aw))
 {
 	_aw.resume();
 }
 
 template <typename T>
-Coroutine<T>::~Coroutine()
+inline Coroutine<T>::~Coroutine()
 {
 
 }
